@@ -6,13 +6,13 @@
 using namespace std;
 
 int main(){
-    cout << "Enter the degree in Celsius: ";
-    int celsius;
-    cin >> celsius;
-    int farenheit;
-    farenheit = 9/5 * celsius + 32;
-    cout << "The degree in Farenheit will be :" << farenheit << ".\n";
-    return 0;
+    cout << "Enter the degree in Celsius: "; //outputs the command to which the user responds in the terminal by inputting a degree in celsius.
+    int celsius; //creates a vari called celsius which will be used to store the user's input
+    cin >> celsius; //stores the user's input into the var celsius
+    int fahrenheit; //creates a var called fahrenheit which will be used to store the fahrenheit conversion of the user's celsius degree input.
+    fahrenheit = 9/5 * celsius + 32; //the conversion formula for celsius to fahrenheit is assigned to the var fahrenheit
+    cout << "The degree in Farenheit will be :" << farenheit << ".\n"; //outputs the integer result of the conversion formula to the terminal, showing the user the conversion from celsius to fahrenheit
+    return 0; //ends function
 
 
 }
