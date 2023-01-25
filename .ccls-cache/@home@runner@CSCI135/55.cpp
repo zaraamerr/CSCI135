@@ -6,8 +6,8 @@
 using namespace std;
 
 int main(){
-    cout << "Enter the degree in Celsius: "; //outputs the command to which the user responds in the terminal by inputting a degree in celsius.
-    int celsius; //creates a vari called celsius which will be used to store the user's input
+    cout << "Enter the degree in Celsius: "; //asks the user to input a degree in celsius.
+    int celsius; //creates a var called celsius which will be used to store the user's input
     cin >> celsius; //stores the user's input into the var celsius
     int fahrenheit; //creates a var called fahrenheit which will be used to store the fahrenheit conversion of the user's celsius degree input.
     fahrenheit = 9/5 * celsius + 32; //the conversion formula for celsius to fahrenheit is assigned to the var fahrenheit
