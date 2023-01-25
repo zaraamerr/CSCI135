@@ -14,7 +14,7 @@ int main(){
     cout << "Enter a symbol other than space: " << endl; //asks the user for a symbol
     cin >> symbol; //stores the user's input into the var symbol 
     
-    for (int i = 0; i < num; i++){ //starts at 0, iterates thru the loop until it reaches the value of num which is basically how many rows are in the triangle
+    for (int i = 0; i < num + 1; i++){ //starts at 0, iterates thru the loop until it reaches the value of num which is basically how many rows are in the triangle
         for (int blank = num - i; blank > 0; blank--) //for each row
             cout << " "; //adds a blank space before each row to create a right-aligned triangle
         
