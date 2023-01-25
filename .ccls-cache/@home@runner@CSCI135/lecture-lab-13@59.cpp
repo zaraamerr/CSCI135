@@ -16,14 +16,14 @@ int main(){
     cin >> monthly; //stores the user's input into the var monthly
     float inflation; //creates a var that will be used to store the inflation as a floating-point number
     inflation = monthly * 0.15 + monthly; //defines the var with a formula to calculate the monthly expenses after inflation hits
-    cout << "month  expense	 remaining balance of budget\n"; //outputs headers into the terminal
+    printf("month  expense	 remaining balance of budget\n"); //outputs headers into the terminal
     for (int i = 1; i <= 12; i++){ //starts at 1, iterates through the loop 12 times (1 year)
         if (i<=6){ //checks if the months are january-june
-            cout << i << "             " << monthly << "               " << annual-monthly * i << endl; //if true, it prints out the current month, the monthly expense, and the remaining annual budget (annual minus monthly) at the end of that month
+            printf("%5d\t%7.2f\t%27.2f\n",i, monthly, annual-monthly * i); //if true, it prints out the current month, the monthly expense, and the remaining annual budget (annual minus monthly) at the end of that month
     
         }
         else if (i>6){ //checks if the months are july to december
-            cout << i << "              " << inflation << "             " << annual-inflation * i << endl; //if true, it prints out the current month, the monthly expense adjusted with inflation, and the remaining budget (annual minus monthly) at the end of that month
+            printf("%5d\t%7.2f\t%27.2f\n", i, inflation, annual-inflation * i); //if true, it prints out the current month, the monthly expense adjusted with inflation, and the remaining budget (annual minus monthly) at the end of that month
             
         }
         if (i==12 && annual-inflation*i >= 0){ //checks if the month is December and if the remaining budget is greater than $0
