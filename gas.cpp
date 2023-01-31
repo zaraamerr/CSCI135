@@ -10,11 +10,11 @@
 using namespace std;
 
 int main (){
-    int num_of_gallons; //creates a var that will store the num of gallons
-    int miles_per_gallon; //creates a var that will store the fuel efficiency in miles per gallon
-    int price; //creates a var that will store the price of gas per gallon
+    double num_of_gallons; //creates a var that will store the num of gallons
+    double miles_per_gallon; //creates a var that will store the fuel efficiency in miles per gallon
+    double price; //creates a var that will store the price of gas per gallon
     double cost_per_100_miles; //creates a var that will store the calculation of how much it costs to travel 100 miles
-    int distance; //creates a var that will store the calculation of how far the car can go with the current amt of gas in the tank
+    double distance; //creates a var that will store the calculation of how far the car can go with the current amt of gas in the tank
     cout << "Enter a number of gallons: " << endl; //asks user to input # of gallons
     cin >> num_of_gallons; //stores user input into var num_of_gallons
     cout << "Enter how many miles can be driven with one gallon of fuel: " << endl; //asks user to input how many miles can be traveled w/ 1 gallon
