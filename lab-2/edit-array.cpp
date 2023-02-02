@@ -11,14 +11,14 @@ using namespace std;
 int main(){
     const int SIZE= 10; //creates a const that will store the size of the array
     int myData[SIZE]; //creates an array of 10 ints 
-    for (int i= 0; i < 10; i++){ //for every int in the array
+    for (int i= 0; i < SIZE; i++){ //for every int in the array
         myData[i]= 1; // each cell stores the value 1 as a placeholder
     }
     int index; //creates a var that will store the user's input for index when they start editing the array
     int v; //creates a var that will store the user's input for the new value they want to substitute into the index of their choice
     do {
         cout << "Array elements: " << endl;
-        for (int i = 0; i < 10; i++){ //for every int in the array
+        for (int i = 0; i < SIZE; i++){ //for every int in the array
             cout << myData[i] << " "; //print it out to the terminal
         }
         cout << endl;
