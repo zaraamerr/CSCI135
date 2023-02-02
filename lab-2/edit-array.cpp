@@ -18,8 +18,9 @@ int main(){
     do {
         cout << "Array elements: " << endl;
         for (int i = 0; i < 10; i++){ //for every int in the array
-            cout << myData[i] << endl; //print it out to the terminal
+            cout << myData[i] << " "; //print it out to the terminal
         }
+        cout << endl;
         cout << "Input index: " << endl; //asks user to input an index
         cin >> index; //stores user input into index
         if (index < 0 || index >= 10){ //checks if the index the user inputted is not within the appropriate range of the array
@@ -31,8 +32,9 @@ int main(){
         myData[index]= v; //sets the value of the element at the user's index to the user's new value
         cout << "Array elements: " << endl;
         for (int i = 0; i < 10; i++){ //for every int in the array
-           cout << myData[i] << endl; //prints out the new array with the updated elements
+           cout << myData[i] << " "; //prints out the new array with the updated elements
         }
+        cout << endl;
     } while (index >= 0 && index < 10); //the loop will keep running if the user enters indexes within the appropriate range of the array. if the user does not enter an appropriate index, the while will be false and the loop will stop iterating.
     return 0;
 }
