@@ -9,7 +9,8 @@
 using namespace std;
 
 int main(){
-    int myData[10]; //creates an array of 10 ints 
+    const int SIZE= 10; //creates a const that will store the size of the array
+    int myData[SIZE]; //creates an array of 10 ints 
     for (int i= 0; i < 10; i++){ //for every int in the array
         myData[i]= 1; // each cell stores the value 1 as a placeholder
     }
@@ -23,13 +24,13 @@ int main(){
         cout << endl;
         cout << "Input index: " << endl; //asks user to input an index
         cin >> index; //stores user input into index
-        if (index < 0 || index >= 10){ //checks if the index the user inputted is not within the appropriate range of the array
+        if (index < 0 || index >= SIZE){ //checks if the index the user inputted is not within the appropriate range of the array
             cout << "Index out of range. Exit program" << endl; //if true, prints out this message
             return 0; //ends
         }
         cout << "Input new value: " << endl; //if the index is all good, ask user to input a new value to be put into that index
         cin >> v; //store user input into v
         myData[index]= v; //sets the value of the element at the user's index to the user's new value
-    } while (index >= 0 && index < 10); //the loop will keep running if the user enters indexes within the appropriate range of the array. if the user does not enter an appropriate index, the while will be false and the loop will stop iterating.
+    } while (index >= 0 && index < SIZE); //the loop will keep running if the user enters indexes within the appropriate range of the array. if the user does not enter an appropriate index, the while will be false and the loop will stop iterating.
     return 0;
 }
