@@ -48,7 +48,7 @@ int main() {
         fin >> east_storage;
         cout << "East basin storage: " << east_storage << endl;
     } else {
-        cout << "The date " << target_date << " was not found in the file." << endl;
+        cout << "" << endl;
     }
 
     fin.close();
