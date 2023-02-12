@@ -7,51 +7,51 @@
 //prints out the East basin storage on that day.
 
 #include <iostream>
-using namespace std;
-#include <fstream>
 #include <cstdlib>
-#include <climits>
+#include <fstream>
 #include <string>
 
+using std::cout;
+using std::cin;
+using std::endl;
+using std::cerr;
+using std::string;
+using std::ifstream;
+
 int main() {
-    std::ifstream fin("Current_Reservoir_Levels.tsv");
+    ifstream fin("Current_Reservoir_Levels.tsv");
     if (fin.fail()) {
-        std::cerr << "File cannot be opened for reading." << std::endl;
+        cerr << "File cannot be opened for reading." << endl;
         exit(1); // exit if failed to open the file
     }
 
     // Get rid of the first header line
-    std::string junk;
+    string junk;
     getline(fin, junk);
 
-    // Asks for user date input
-    std::string user_date;
-    std::cout << "Enter date: ";
-    std::cin >> user_date;
+    // Asks for target date input
+    string target_date;
+    cout << "Enter date: ";
+    cin >> target_date;
 
-    std::string date;
+    string date;
     double east_storage = 0.0;
 
-    // Compare date and user_date until they're the same
+    // Compare date and target_date until they're the same
     do {
         fin >> date;
-        if (fin.eof()) {
-            break;
-        }
     }
-    while (date.compare(user_date) != 0);
+    while (date.compare(target_date) != 0 && !fin.eof());
 
     // Retrieve the next value (which happens to be east storage) and store in variable
-    fin >> east_storage;
-
-    std::cout << "East basin storage: " << east_storage << " billion gallons." << std::endl;
-
-    // If the date is not found, output an error message
-    if (fin.eof()) {
-        std::cout << "The date " << user_date << " was not found in the file." << std::endl;
-        return 1;
+    if (!fin.eof()) {
+        fin >> east_storage;
+        cout << "East basin storage: " << east_storage << endl;
+    } else {
+        cout << "The date " << target_date << " was not found in the file." << endl;
     }
-    
+
+    fin.close();
+
     return 0;
 }
-
