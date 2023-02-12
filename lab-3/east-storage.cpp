@@ -35,6 +35,9 @@ int main() {
     // Compare date and user_date until they're the same
     do {
         fin >> date;
+        if (fin.eof()) {
+            break;
+        }
     }
     while (date.compare(user_date) != 0);
 
@@ -43,8 +46,12 @@ int main() {
 
     std::cout << "East basin storage: " << east_storage << " billion gallons." << std::endl;
 
-    fin.close();
-
+    // If the date is not found, output an error message
+    if (fin.eof()) {
+        std::cout << "The date " << user_date << " was not found in the file." << std::endl;
+        return 1;
+    }
+    
     return 0;
 }
 
