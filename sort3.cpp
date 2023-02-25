@@ -11,6 +11,9 @@ void sort3(int& a, int& b, int&c) {
     if (a > b){ //sort a and b first, if a is greater than b
         swap(a,b); //swap the values of a and b to ensure a is less than b
     }
+    if (a > c){ //sort a and c next, if a is greater than c
+        swap(a,b); //swap the values of a and c to ensure a is less than b
+    }
     if (b > c){ //sort b and c next, if b is greater than c
         swap (b,c); //swap the values of b and c to ensure b is less than c
     }
