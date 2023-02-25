@@ -17,9 +17,3 @@ string middle (string str){
         return str.substr(length/2, 1); //else if the str len is odd, return the single middle letter by extracting a substr of len 2
     }
 }
-
-//test middle func in main
-int main(){
-    cout << middle ("treat") << endl; //odd
-    cout << middle ("superb") << endl; //even
-}
