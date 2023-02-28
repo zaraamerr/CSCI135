@@ -25,8 +25,6 @@ void readWords(string filename) {
     }
 
     string word, pos, definition;
-    getline(fin, word); // read the header
-
     while (fin >> word >> pos >> definition) {
         getline(fin, definition);
         g_words[g_word_count] = word;
@@ -38,10 +36,6 @@ void readWords(string filename) {
         g_definitions[g_word_count] = definition.substr(1);
         g_word_count++;
 
-        for (int i = 0; i < g_word_count; i++) {
-        cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
-     }
-
         if (g_word_count >= g_MAX_WORDS) {
             cerr << "Error: Exceeded maximum number of words" << endl;
             exit(1);
@@ -51,12 +45,12 @@ void readWords(string filename) {
     fin.close();
 }
 
-// int main() {
-//     readWords("dict.txt");
+int main() {
+    readWords("dict.txt");
 
-//     for (int i = 0; i < g_word_count; i++) {
-//         cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
-//     }
+    for (int i = 0; i < g_word_count; i++) {
+        cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
+    }
 
-//     return 0;
-// }
+    return 0;
+}
