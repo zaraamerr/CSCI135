@@ -45,12 +45,12 @@ void readWords(string filename) {
     fin.close();
 }
 
-int main() {
-    readWords("dict.txt");
+// int main() {
+//     readWords("dict.txt");
 
-    for (int i = 0; i < g_word_count; i++) {
-        cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
-    }
+//     for (int i = 0; i < g_word_count; i++) {
+//         cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
