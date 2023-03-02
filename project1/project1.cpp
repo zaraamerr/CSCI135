@@ -166,6 +166,68 @@ bool addWord(string word, string definition, string pos) {
     return true; // word successfully added
 }
 
+/*
+    @param word       :   The string with the word that is to
+                          be edited
+    @param definition :   The string with the new definition of 
+                          the `word`
+    @param pos        :   The string with the new pos of the `word`
+    @return           :   return `true` if the word is successfully
+                          edited, return `false` if the `word`
+                          doesn't exist in the dictionary
+    @post             :   Replace the given `word`'s  definition
+                          and pos with the given `definition` and
+                          `pos` (by modifying global-arrays
+                          `g_definitions` and `g_pos`).
+                          The modification will fail if the word
+                          doesn't exist in the dictionary
+*/
+
+bool editWord(string word, string definition, string pos) {
+    int index = getIndex(word);
+    if (index == -1) {
+        return false;
+    } else {
+        g_definitions[index] = definition;
+        g_pos[index] = pos;
+        return true;
+    }
+}
+
+
+/*
+    @param            :   The string with the word that is to
+                          be removed
+    @return           :   return `true` if the word is successfully
+                          removed from the dictionary return `false`
+                          if the word doesn't exist in the dictionary
+    @post             :   Remove the given `word`, `word`'s
+                          definition and `word`'s pos from the
+                          respective global-arrays if the word
+                          exists.  
+                          Update `g_word_count` if the word is
+                          successfully removed
+*/
+bool removeWord(string word) {
+    int index = getIndex(word);
+    if (index == -1) {
+        // word doesn't exist in the dictionary
+        return false;
+    }
+    // shift all elements after index one position to the left
+    for (int i = index; i < g_word_count - 1; i++) {
+        g_words[i] = g_words[i + 1];
+        g_definitions[i] = g_definitions[i + 1];
+        g_pos[i] = g_pos[i + 1];
+    }
+    // decrease the word count and set the last element to empty string
+    g_word_count--;
+    g_words[g_word_count] = "";
+    g_definitions[g_word_count] = "";
+    g_pos[g_word_count] = "";
+    return true;
+}
+
 
 // int main() {
 //     readWords("dict.txt");
