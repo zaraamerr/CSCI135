@@ -229,36 +229,47 @@ bool removeWord(string word) {
 }
 
 
-// int main() {
-//     readWords("dict.txt");
+int main() {
+    readWords("dict.txt");
 
-//     for (int i = 0; i < g_word_count; i++) {
-//         cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
-//     }
-//     string word = "Grumpy";
-//     string word2 = "Happy";
+    for (int i = 0; i < g_word_count; i++) {
+        cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
+    }
+    string word = "Grumpy";
+    string word2 = "Happy";
 
-//     int index = getIndex(word);
-//     cout << index << endl;
-//     int index2 = getIndex(word2);
-//     cout << index2 << endl;
-//     string definition1 = getDefinition(word);
-//     cout << definition1 << endl;
-//     string definition2 = getDefinition(word2);
-//     cout << definition2 << endl;
-//     string pos1 = getPOS(word);
-//     cout << pos1 << endl;
-//     string pos2 = getPOS(word2);
-//     cout << pos2 << endl; 
-//     string prefix1= "Gru";
-//     int count = countPrefix(prefix1);
-//     cout << count << endl;
-//     if (addWord("apple", "a fruit that is typically round, red, and juicy", "noun")) {
-//         cout << "Successfully added 'apple' to the dictionary." << endl;
-//     }
-//     else {
-//         cout << "Failed to add 'apple' to the dictionary." << endl;
-//     }
+    int index = getIndex(word);
+    cout << index << endl;
+    int index2 = getIndex(word2);
+    cout << index2 << endl;
+    string definition1 = getDefinition(word);
+    cout << definition1 << endl;
+    string definition2 = getDefinition(word2);
+    cout << definition2 << endl;
+    string pos1 = getPOS(word);
+    cout << pos1 << endl;
+    string pos2 = getPOS(word2);
+    cout << pos2 << endl; 
+    string prefix1= "Gru";
+    int count = countPrefix(prefix1);
+    cout << count << endl;
+    bool success = addWord("apple", "a fruit", "noun");
 
-//     return 0;
-// }
+    // Edit the word
+    success = editWord("apple", "a type of fruit", "noun");
+    if (success) {
+        cout << "Edit successful" << endl;
+    } else {
+        cout << "Edit failed" << endl;
+    }
+
+    // Remove the word
+    success = removeWord("apple");
+    if (success) {
+        cout << "Removal successful" << endl;
+    } else {
+        cout << "Removal failed" << endl;
+    }
+
+    return 0;
+}
