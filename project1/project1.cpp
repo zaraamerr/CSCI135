@@ -2,7 +2,7 @@
 //CSCI135
 //Date: Feb 27 2023
 //Professor Maryash
-//Task A Project 1
+//Project 1
 
 
 #include <iostream>
@@ -147,24 +147,22 @@ int countPrefix(string prefix){
 
 
 bool addWord(string word, string definition, string pos) {
-    // Check if dictionary is full
-    if (g_word_count >= g_MAX_WORDS) {
-        return false;
-    }
-
-    // Check if word already exists in dictionary
+    // Check if the word already exists
     for (int i = 0; i < g_word_count; i++) {
-        if (g_words[i] == word) {
+        if (word == g_words[i]) {
             return false;
         }
     }
-
-    // Add new word to dictionary
+    // Check if the dictionary is full
+    if (g_word_count >= g_MAX_WORDS) {
+        return false;
+    }
+    // Add the word, definition, and pos to the end of the respective global-arrays
     g_words[g_word_count] = word;
     g_definitions[g_word_count] = definition;
     g_pos[g_word_count] = pos;
+    // Update g_word_count
     g_word_count++;
-
     return true;
 }
 
