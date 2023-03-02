@@ -145,25 +145,25 @@ int countPrefix(string prefix){
                           successfully added
 */
 
-
 bool addWord(string word, string definition, string pos) {
-    // Check if the word already exists
-    for (int i = 0; i < g_word_count; i++) {
-        if (word == g_words[i]) {
-            return false;
-        }
+    // Check if the word already exists in the dictionary
+    int index = getIndex(word);
+    if (index >= 0) {
+        return false; // word already exists
     }
+    
     // Check if the dictionary is full
     if (g_word_count >= g_MAX_WORDS) {
-        return false;
+        return false; // dictionary is full
     }
-    // Add the word, definition, and pos to the end of the respective global-arrays
+    
+    // Add the word, definition, and pos to the end of the respective global arrays
     g_words[g_word_count] = word;
     g_definitions[g_word_count] = definition;
     g_pos[g_word_count] = pos;
-    // Update g_word_count
     g_word_count++;
-    return true;
+    
+    return true; // word successfully added
 }
 
 
