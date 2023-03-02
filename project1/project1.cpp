@@ -236,55 +236,6 @@ string getRandomWord() {
     return g_words[index];
 }
 
-// game-loop for Hangman
-void gameLoop() {
-    int difficulty, tries;
-    string word, current;
-    char letter;
-    while (true) {
-        cout << "Welcome to Hangman!" << endl;
-        cout <<  "0. easy\n1. normal\n2. hard\n3. exit\nChoose a difficulty: ";
-        cin >> difficulty;
-        while (difficulty < 0 || difficulty > 3) {
-            cout <<  "Enough horseplay >_< !\n0. easy\n1. normal\n2. hard\n3. exit\nChoose a difficulty: ";
-            cin >> difficulty;
-        }
-        if (difficulty == 3) {
-            cout << "If you're hangry, go grab a bite! See what I did there?" << endl;
-            break;
-        }
-        word = getRandomWord();
-        current = maskWord(word);
-        tries = getTries(difficulty);
-        while (tries != 0) {
-            cout << "Life: ";
-            printAttempts(tries, difficulty);
-            cout << endl << "Word: "<< current << endl;
-            cout << "Enter a letter: ";
-            cin >> letter;
-            
-            if (!revealLetter(word, letter, current)) {
-                tries--;
-            }
-            if (current == word) {
-                break;
-            }
-            if (tries == 2) {
-                cout << "The part of speech of the word is "<< getPOS(word) << endl;
-            }
-            if (tries == 1) {
-                cout << "Definition of the word: " << getDefinition(word) << endl;
-            }
-        }
-        if (tries == 0) {
-            cout << "The word is \"" << word << "\". Better luck next time! You're getting the ..ahem.. hang of it." << endl;
-        }
-        else {
-            cout << "Congrats!!!" << endl;
-        }
-    }
-}
-
 /*
     @param            :   The string with a word from the dictionary 
     @return           :   string of "_" based on the number of
@@ -389,49 +340,66 @@ bool revealLetter(string word, char letter, string& current) {
     return found;
 }
 
+// function prototypes
+string getRandomWord();
+string maskWord(string word);
+int getTries(int difficulty);
+void printAttempts(int tries, int difficulty);
+bool revealLetter(string word, char letter, string &current);
 
+// game-loop for Hangman
+void gameLoop() {
+    int difficulty, tries;
+    string word, current;
+    char letter;
+    while (true) {
+        cout << "Welcome to Hangman!" << endl;
+        cout <<  "0. easy\n1. normal\n2. hard\n3. exit\nChoose a difficulty: ";
+        cin >> difficulty;
+        while (difficulty < 0 || difficulty > 3) {
+            cout <<  "Enough horseplay >_< !\n0. easy\n1. normal\n2. hard\n3. exit\nChoose a difficulty: ";
+            cin >> difficulty;
+        }
+        if (difficulty == 3) {
+            cout << "If you're hangry, go grab a bite! See what I did there?" << endl;
+            break;
+        }
+        word = getRandomWord();
+        current = maskWord(word);
+        tries = getTries(difficulty);
+        while (tries != 0) {
+            cout << "Life: ";
+            printAttempts(tries, difficulty);
+            cout << endl << "Word: "<< current << endl;
+            cout << "Enter a letter: ";
+            cin >> letter;
+            
+            if (!revealLetter(word, letter, current)) {
+                tries--;
+            }
+            if (current == word) {
+                break;
+            }
+            if (tries == 2) {
+                cout << "The part of speech of the word is "<< getPOS(word) << endl;
+            }
+            if (tries == 1) {
+                cout << "Definition of the word: " << getDefinition(word) << endl;
+            }
+        }
+        if (tries == 0) {
+            cout << "The word is \"" << word << "\". Better luck next time! You're getting the ..ahem.. hang of it." << endl;
+        }
+        else {
+            cout << "Congrats!!!" << endl;
+        }
+    }
+}
 
-// int main() {
-//     readWords("dict.txt");
+//PLAY HANGMAN!!!
 
-//     for (int i = 0; i < g_word_count; i++) {
-//         cout << g_words[i] << " " << g_pos[i] << ": " << g_definitions[i] << endl;
-//     }
-//     string word = "Grumpy";
-//     string word2 = "Happy";
-
-//     int index = getIndex(word);
-//     cout << index << endl;
-//     int index2 = getIndex(word2);
-//     cout << index2 << endl;
-//     string definition1 = getDefinition(word);
-//     cout << definition1 << endl;
-//     string definition2 = getDefinition(word2);
-//     cout << definition2 << endl;
-//     string pos1 = getPOS(word);
-//     cout << pos1 << endl;
-//     string pos2 = getPOS(word2);
-//     cout << pos2 << endl; 
-//     string prefix1= "Gru";
-//     int count = countPrefix(prefix1);
-//     cout << count << endl;
-//     bool success = addWord("apple", "a fruit", "noun");
-
-//     // Edit the word
-//     success = editWord("apple", "a type of fruit", "noun");
-//     if (success) {
-//         cout << "Edit successful" << endl;
-//     } else {
-//         cout << "Edit failed" << endl;
-//     }
-
-//     // Remove the word
-//     success = removeWord("apple");
-//     if (success) {
-//         cout << "Removal successful" << endl;
-//     } else {
-//         cout << "Removal failed" << endl;
-//     }
-
-//     return 0;
-// }
+int main() {
+    srand(time(NULL)); // initialize random seed
+    gameLoop();
+    return 0;
+}
