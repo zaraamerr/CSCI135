@@ -125,7 +125,48 @@ int countPrefix(string prefix){
     return count; //return # of words that start with the given prefix
 }
 
+/*
+    @param word       :   The string with a new word
+    @param definition :   The string with the definition of the
+                          new `word`
+    @param pos        :   The string with the pos of the new `word`
+    @return           :   return `true` if the word is
+                          successfully added to the dictionary
+                          return `false` if failed (word already
+                          exists or dictionary is full)
+    @post             :   Add the given `word`, `definition`, `pos`
+                          to the end of the respective
+                          global-arrays.
+                          The word should not be added to the
+                          global-arrays if it already exists 
+                          or if the array reached maximum 
+                          capacity(`g_MAX_WORDS`).
+                          Update `g_word_count` if the word is
+                          successfully added
+*/
 
+
+bool addWord(string word, string definition, string pos) {
+    // Check if dictionary is full
+    if (g_word_count >= g_MAX_WORDS) {
+        return false;
+    }
+
+    // Check if word already exists in dictionary
+    for (int i = 0; i < g_word_count; i++) {
+        if (g_words[i] == word) {
+            return false;
+        }
+    }
+
+    // Add new word to dictionary
+    g_words[g_word_count] = word;
+    g_definitions[g_word_count] = definition;
+    g_pos[g_word_count] = pos;
+    g_word_count++;
+
+    return true;
+}
 
 
 // int main() {
@@ -152,5 +193,12 @@ int countPrefix(string prefix){
 //     string prefix1= "Gru";
 //     int count = countPrefix(prefix1);
 //     cout << count << endl;
+//     if (addWord("apple", "a fruit that is typically round, red, and juicy", "noun")) {
+//         cout << "Successfully added 'apple' to the dictionary." << endl;
+//     }
+//     else {
+//         cout << "Failed to add 'apple' to the dictionary." << endl;
+//     }
+
 //     return 0;
 // }
