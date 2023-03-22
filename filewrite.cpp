@@ -17,7 +17,7 @@ int main() {
         std::cerr << "Error opening file." << std::endl;
         return 1;
     }
-    outfile << "Hello, World!\n";
+    outfile << "Hello, World!";
     outfile.close();
 
     // Open the file for reading
