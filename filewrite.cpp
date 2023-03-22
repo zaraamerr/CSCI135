@@ -31,7 +31,7 @@ int main() {
     infile.close();
 
     // Print the message
-    std::cout << message << std::endl;
+    std::cout << message;
 
     return 0;
 }
