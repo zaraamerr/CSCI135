@@ -1,3 +1,4 @@
 # CSCI135
 
-Practice programs, labs from CSCI 135, just a place for me to test a bunch of programs before submitting them.
+Hey! My name is Zara. I attend Hunter College. This is a repo I made to
+store all my HW assignments, projects, and some labs for my CSCI135 class.
