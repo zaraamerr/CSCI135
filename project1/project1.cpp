@@ -9,12 +9,13 @@
 #include <fstream>
 #include <string>
 #include <stdlib.h>
+#include <ctime>
 
 
 using namespace std;
 
 const int g_MAX_WORDS = 1000;
-int g_word_count = 0;
+int g_word_count = 1;
 string g_words[g_MAX_WORDS];
 string g_definitions[g_MAX_WORDS];
 string g_pos[g_MAX_WORDS];
@@ -58,7 +59,7 @@ void readWords(string filename) {
                           if word is not in the array
 */
 int getIndex(string word){
-    for (int i = 0; i < g_word_count; i++){ //loop thru all words in array
+    for (int i = 1; i < g_word_count; i++){ //loop thru all words in array
         if (g_words[i]==word){ //if a word in the array matches the query word
             return i; //return index of that word
         }
@@ -117,7 +118,7 @@ string getPOS(string word){
 
 int countPrefix(string prefix){
     int count= 0; //counter variable
-    for (int i=0; i < g_word_count; i++){ //loop thru all words in array
+    for (int i= 1; i < g_word_count; i++){ //loop thru all words in array
         if(g_words[i].substr(0, prefix.length())==prefix){ 
                             //check if given prefix
                             //matches the prefix of any word in the array
@@ -343,11 +344,14 @@ bool revealLetter(string word, char letter, string& current) {
 // function prototypes
 string getRandomWord();
 string maskWord(string word);
+bool revealLetter(string word, char letter, string &current);
+string getDefinition(string word);
+string getPOS(string word);
 int getTries(int difficulty);
 void printAttempts(int tries, int difficulty);
-bool revealLetter(string word, char letter, string &current);
+void gameLoop();
 
-// game-loop for Hangman
+//game-loop for Hangman
 void gameLoop() {
     int difficulty, tries;
     string word, current;
@@ -395,6 +399,52 @@ void gameLoop() {
         }
     }
 }
+
+// void gameLoop() {
+//     int difficulty, tries;
+//     string word, current;
+//     char letter;
+//     while (true) {
+//         cout << "Welcome to Hangman!" << endl;
+//         cout <<  "0. easy\n1. normal\n2. hard\n3. exit\nChoose a difficulty: ";
+//         cin >> difficulty;
+//         while (difficulty < 0 || difficulty > 3) {
+//             cout <<  "Enough horseplay >_< !\n0. easy\n1. normal\n2. hard\n3. exit\nChoose a difficulty: ";
+//             cin >> difficulty;
+//         }
+//         if (difficulty == 3) {
+//             cout << "If you're hangry, go grab a bite! See what I did there?" << endl;
+//             break;
+//         }
+//         word = getRandomWord();
+//         current = maskWord(word);
+//         tries = getTries(difficulty);
+//         while (tries != 0) {
+//             cout << "Life: ";
+//             printAttempts(tries, difficulty);
+//             cout << endl << "Word: "<< current << endl;
+//             cout << "Enter a letter: ";
+//             cin >> letter;
+            
+//             if (!revealLetter(word, letter, current)) {
+//                 tries--;
+//             }
+//             if (current == word) {
+//                 cout << "Congrats!!!" << endl;
+//                 break;
+//             }
+//             if (tries == 2) {
+//                 cout << "The part of speech of the word is "<< getPOS(word) << endl;
+//             }
+//             if (tries == 1) {
+//                 cout << "Definition of the word: " << getDefinition(word) << endl;
+//             }
+//         }
+//         if (tries == 0) {
+//             cout << "The word was \"" << word << "\". Better luck next time! You're getting the ..ahem.. hang of it." << endl;
+//         }
+//     }
+// }
 
 //PLAY HANGMAN!!!
 
