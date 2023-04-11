@@ -139,28 +139,32 @@ void readSongs(string filename) {
                   are three "HipHop" songs on the playlist 
 */
 string * getGenreSongs(string genre, int &genreCount) {
-    // Count the number of songs of the given genre
+    // count how many songs match the genre
     genreCount = 0;
-    for (int i = 1; i <= g_number_of_songs; i++) {
-        //loop thru the genres array
+    for (int i = 0; i < g_number_of_songs; i++) {
         if (g_genres[i] == genre) {
             genreCount++;
         }
     }
 
-    // dynamically allocate an array of strings with size equal to the number of songs found.
-    string * genreSongs = new string[genreCount];
+    // if there are no matching songs, return an empty array
+    if (genreCount == 0) {
+        return new string[g_number_of_songs];
+    }
 
-    // Populate the array with the names of the songs of the given genre
-    int index = 0;
-    for (int i = 1; i <= g_number_of_songs; i++) {
+    // allocate an array to hold the matching song names
+    string * genreSongs = new string[g_number_of_songs];
+
+    // fill the array with the names of the matching songs
+    int j = 0;
+    for (int i = 0; i < g_number_of_songs; i++) {
         if (g_genres[i] == genre) {
-            genreSongs[index] = g_song_names[i];
-            index++;
+            genreSongs[j] = g_song_names[i];
+            j++;
         }
     }
 
-    // Return a pointer to the array of song names
+    // return the array
     return genreSongs;
 }
 
@@ -208,41 +212,135 @@ string * getGenreSongs(string genre, int &genreCount) {
                   The value of 'equal' will be 2 because there are 2 songs
                   equal to 3 mins duration      
 */
-string * getSongsFromDuration(int duration, int &durationsCount, int filter) {
-    //first allocate an array of strings of size of g_number_of_songs
-    //then initialize a counter variable count to 0
-    string *result = new string[g_number_of_songs];
-    int count = 0;
-    //loops through all songs, checking if the duration of each song matches the given filter, 
-    //and if so, adds its name to the result array and increments count.
+string * getSongsFromDuration(int duration, int &durationsCount, int filter){
+    string *durationSongs = new string[g_number_of_songs];
+    int index = 0;
     for (int i = 0; i < g_number_of_songs; i++) {
         if ((filter == 0 && g_song_durations[i] > duration) ||
             (filter == 1 && g_song_durations[i] < duration) ||
             (filter == 2 && g_song_durations[i] == duration)) {
-            result[count++] = g_song_names[i];
+            durationSongs[index++] = g_song_names[i];
         }
     }
-    //update the durationsCount parameter with the value of count.
-    durationsCount = count;
+    durationsCount = index;
+    if (durationsCount == 0) {
+        delete[] durationSongs;
+        durationSongs = new string[g_number_of_songs];
+    }
+    return durationSongs;
+}
 
-    //if count is 0, then the result array is empty, so we need to deallocate it 
-    //and return a pointer to a new empty array.
-    if (count == 0) {
-        delete[] result;
-        result = new string[0];
-    } else {
-        //Otherwise, create a new array temp of size count, 
-        //copy the elements of result into temp, deallocate result, and return temp
-        string *temp = new string[count];
-        for (int i = 0; i < count; i++) {
-            temp[i] = result[i];
+/*
+    @param      :   An integer that will keep track of unique artists
+    @return     :   A pointer to a dynamically allocated array of strings 
+    @post       :   Return a pointer to a dynamically allocated array of strings
+                    containing the names of unique artists in 'g_artist_names'
+                    and update 'uniqueCount' parameter to be the number of
+                    unique artists found
+    
+    For example : Let's say we have the following 'g_artist_names':
+                  ["Eminem", "Eminem", "Jay Z", "Jay Z", "Nas"]
+                  
+                  We try the following code with this 'g_artist_names':
+                  int main(){
+                    int count = 0;
+                    string * uniques = getUniqueArtists(count);
+                  }
+
+                  In this case, 'uniques' will be pointing to the following:
+                  ["Eminem", "Jay Z", "Nas"]
+                  The value of 'count' will be updated to 3 because there
+                  are three unique artists on the playlist     
+*/
+string * getUniqueArtists(int &uniqueCount) {
+    // Create a temporary array to store unique artists
+    string *uniqueArtists = new string[g_number_of_songs];
+
+    // Loop through all the songs and add unique artists to the temporary array
+    int index = 0;
+    for (int i = 0; i < g_number_of_songs; i++) {
+        bool isUnique = true;
+        for (int j = 0; j < i; j++) {
+            if (g_artist_names[i] == g_artist_names[j]) {
+                isUnique = false;
+                break;
+            }
         }
-        delete[] result;
-        result = temp;
+        if (isUnique) {
+            uniqueArtists[index] = g_artist_names[i];
+            index++;
+        }
     }
+
+    // Update uniqueCount parameter with the number of unique artists found
+    uniqueCount = index;
+
+    // Create a new array to store the unique artists without any empty slots
+    string *result = new string[g_number_of_songs];
+    for (int i = 0; i < index; i++) {
+        result[i] = uniqueArtists[i];
+    }
+
+    // Deallocate the temporary array
+    delete[] uniqueArtists;
 
     return result;
 }
+
+/* 
+    @return     :   A string with the artist with most songs in playlist
+    @post       :   Find the artist with the most songs in the playlist
+                    If there are multiple such artists, return any one of them.
+                    Return "NONE" if the playlist is empty
+
+    For example : Let's say we have the following 'g_artist_names':
+                  ["J. Cole", "J. Cole", "Kendrick", "Kendrick", "Kendrick"]
+                  The favorite artist here is "Kendrick" because he has 3 songs
+                  However, consider the following 'g_artist_names':
+                  ["J. Cole", "J. Cole", "Kendrick", "Kendrick", "Drake"]
+                  In this case, the favorite artist is either "J.Cole" or "Kendrick"
+                  because both artists have 2 songs which is greater than any 
+                  other artists in the playlist
+*/
+string getFavoriteArtist() {
+    if (g_number_of_songs == 0) {
+        return "NONE";
+    }
+    string uniqueArtists[g_number_of_songs];
+    int artistCount[g_number_of_songs] = {0};
+    int uniqueCount = 0;
+    int maxCount = 0;
+    string maxArtist = "";
+    for (int i = 0; i < g_number_of_songs; i++) {
+        string artist = g_artist_names[i];
+        bool found = false;
+        // check if the artist is already in the uniqueArtists array
+        for (int j = 0; j < uniqueCount; j++) {
+            if (uniqueArtists[j] == artist) {
+                found = true;
+                artistCount[j]++;
+                if (artistCount[j] > maxCount) {
+                    maxCount = artistCount[j];
+                    maxArtist = artist;
+                }
+                break;
+            }
+        }
+        // if artist is not found in uniqueArtists, add it to the array
+        if (!found) {
+            uniqueArtists[uniqueCount] = artist;
+            artistCount[uniqueCount]++;
+            if (artistCount[uniqueCount] > maxCount) {
+                maxCount = artistCount[uniqueCount];
+                maxArtist = artist;
+            }
+            uniqueCount++;
+        }
+    }
+    return maxArtist;
+}
+
+
 
 // int main() {
 //     string filename = "songs.txt"; // replace with the actual filename
@@ -260,8 +358,37 @@ string * getSongsFromDuration(int duration, int &durationsCount, int filter) {
 //     for (int i = 0; i < count; i++) {
 //         cout << genreSongs[i] << endl;
 //     }
-
+    
 //     return 0;
+//     // // Test getSongsFromDuration with different filters and durations
+//     // int greater = 0, less = 0, equal = 0;
+//     // string* longSongs = getSongsFromDuration(4, greater, 0);
+//     // string* shortSongs = getSongsFromDuration(2, less, 1);
+//     // string* mediumSongs = getSongsFromDuration(3, equal, 2);
+
+//     // // Print results
+//     // cout << "Songs greater than 4 minutes:" << endl;
+//     // for (int i = 0; i < greater; i++) {
+//     //     cout << longSongs[i] << endl;
+//     // }
+//     // cout << "Total count: " << greater << endl;
+
+//     // cout << "Songs less than 2 minutes:" << endl;
+//     // for (int i = 0; i < less; i++) {
+//     //     cout << shortSongs[i] << endl;
+//     // }
+//     // cout << "Total count: " << less << endl;
+
+//     // cout << "Songs equal to 3 minutes:" << endl;
+//     // for (int i = 0; i < equal; i++) {
+//     //     cout << mediumSongs[i] << endl;
+//     // }
+//     // cout << "Total count: " << equal << endl;
+
+//     // // Test getUniqueArtists
+//     // int uniqueCount = 0;
+//     // string* uniqueArtists = getUniqueArtists(uniqueCount);
+
 // }
 
 
