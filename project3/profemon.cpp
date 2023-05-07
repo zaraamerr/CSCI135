@@ -24,7 +24,7 @@ Profemon::Profemon(){
 
 Profemon::Profemon(std::string name, double max_health, Specialty specialty){
     pname = name;
-    max_health = max_health;
+    maxhealth = max_health;
     pspecialty = specialty;
     req_exp = 50;
     curr_exp = 0;
@@ -60,7 +60,7 @@ int Profemon::getLevel(){
 //
 
 double Profemon::getMaxHealth(){
-    return max_health;
+    return maxhealth;
 }
 
 int Profemon::getCurrExp()
@@ -119,36 +119,29 @@ void Profemon::setName(std::string name){
 //                     As stated above, each specialty has 
 //                     a different speed of leveling up
 
-void Profemon::levelUp(int exp) {
-    int levelIncrease = 0;
-    int newReqExp = req_exp;
-    
+void Profemon::levelUp(int exp)
+{
+    int incrementStep = 0;
     if (pspecialty == ML) {
-        while (exp >= newReqExp) {
-            levelIncrease++;
-            exp -= newReqExp;
-            newReqExp += 10;
-        }
+        incrementStep = 10;
     }
     else if (pspecialty == SOFTWARE) {
-        while (exp >= newReqExp) {
-            levelIncrease++;
-            exp -= newReqExp;
-            newReqExp += 15;
-        }
+        incrementStep = 15;
     }
     else if (pspecialty == HARDWARE) {
-        while (exp >= newReqExp) {
-            levelIncrease++;
-            exp -= newReqExp;
-            newReqExp += 20;
-        }
+        incrementStep = 20;
     }
-    
-    plevel += levelIncrease;
+    else {
+        return;
+    }
+    while (exp >= req_exp) {
+        exp -= req_exp;
+        plevel++;
+        req_exp += incrementStep;
+    }
     curr_exp = exp;
-    req_exp = newReqExp;
 }
+
 
     // @param      :   the skill slot or index
     // @param      :   the new skill to be learned 
@@ -192,7 +185,7 @@ bool Profemon::learnSkill(int slot, Skill skill){
 //
 
 void Profemon::printProfemon(bool print_skills){
-    std::cout << pname << " [" << pspecialty << "] | lvl " << plevel << " | exp " << curr_exp << "/" << req_exp << " | hp " << max_health << std::endl;
+    std::cout << pname << " [" << pspecialty << "] | lvl " << plevel << " | exp " << curr_exp << "/" << req_exp << " | hp " << maxhealth << std::endl;
     if (print_skills == true){
         for (int i = 0; i < 3; i++){
             if (pskills[i].getName() != "Undefined"){

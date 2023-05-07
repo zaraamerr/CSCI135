@@ -47,7 +47,7 @@ private:
     int plevel;
     int req_exp;
     int curr_exp;
-    int max_health;
+    int maxhealth;
     Specialty pspecialty;
     Skill pskills[3];
 public:
