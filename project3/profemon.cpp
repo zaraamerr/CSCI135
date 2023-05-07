@@ -132,15 +132,17 @@ void Profemon::levelUp(int exp)
         incrementStep = 20;
     }
     else {
-        return;
+        return; 
     }
-    while (exp >= req_exp) {
-        exp -= req_exp;
+    int totalExp = curr_exp + exp;
+    while (totalExp >= req_exp) {
+        totalExp -= req_exp;
         plevel++;
         req_exp += incrementStep;
     }
-    curr_exp = exp;
+    curr_exp = totalExp;
 }
+
 
 
     // @param      :   the skill slot or index
@@ -184,8 +186,28 @@ bool Profemon::learnSkill(int slot, Skill skill){
 //       The last line prints an endline.
 //
 
-void Profemon::printProfemon(bool print_skills){
-    std::cout << pname << " [" << pspecialty << "] | lvl " << plevel << " | exp " << curr_exp << "/" << req_exp << " | hp " << maxhealth << std::endl;
+void Profemon::printProfemon(bool print_skills) {
+    // Convert specialty code to string
+    std::string specialty_str;
+    switch (pspecialty) {
+        case 0:
+            specialty_str = "ML";
+            break;
+        case 1:
+            specialty_str = "SOFTWARE";
+            break;
+        case 2:
+            specialty_str = "HARDWARE";
+            break;
+        default:
+            specialty_str = "Undefined";
+            break;
+    }
+
+    // Print profémon information
+    std::cout << pname << " [" << specialty_str << "] | lvl " << plevel << " | exp " << curr_exp << "/" << req_exp << " | hp " << maxhealth << std::endl;
+
+    // Print skills if requested
     if (print_skills == true){
         for (int i = 0; i < 3; i++){
             if (pskills[i].getName() != "Undefined"){
