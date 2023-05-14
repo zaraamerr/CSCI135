@@ -1,5 +1,14 @@
+//CSCI 135
+//Prof Maryash
+//Project 3
+//Zara Amer
+//5/13/23
+
+#include <iostream>
 #include "profemon.hpp"
 #include "skill.hpp"
+#include "trainer.hpp"
+#include "department.hpp"
 using namespace std;
 int main(){
     // maryash skills

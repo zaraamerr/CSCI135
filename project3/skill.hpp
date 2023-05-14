@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 
+
 // The Skill class must have the following information stored in their private member variables:
 
 // - The name of the skill
